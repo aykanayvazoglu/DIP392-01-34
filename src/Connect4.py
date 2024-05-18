@@ -1,6 +1,7 @@
 
 from sys import exit
 import pygame
+import numpy as np
 
 pygame.init()
 
@@ -27,6 +28,14 @@ bluetoken_surf = pygame.image.load('src/assets/bluetoken.png')
 
 floor_rect = pygame.Rect(0, 709, 1280,11)
 
+game_board = np.zeros((6, 7))
+col1_pressed = 0
+col2_pressed = 0
+col3_pressed = 0
+col4_pressed = 0
+col5_pressed = 0
+col6_pressed = 0
+col7_pressed = 0
 turn = 0
 
 
@@ -52,20 +61,47 @@ while True:
         mouse_pos = pygame.mouse.get_pos()
         mouse_buttons = pygame.mouse.get_pressed()
         if column_1.collidepoint(mouse_pos):
-            screen.blit(redtoken_surf, (292, 20))
+            screen.blit(redtoken_surf, (300, 20))
             if mouse_buttons[0]:
-                screen.blit(redtoken_surf, (300,floor_rect.top-83))
+                #game_board[col1_pressed][0]
+                col1_pressed+=1
+                screen.blit(redtoken_surf, (300, floor_rect.top - 80))
+                print(col1_pressed)
         elif  column_2.collidepoint(mouse_pos):
             screen.blit(redtoken_surf, (392, 20))
+            if mouse_buttons[0]:
+                #game_board[col2_pressed][1]
+                col2_pressed+=1
         elif  column_3.collidepoint(mouse_pos):
             screen.blit(redtoken_surf, (492, 20))
+            if mouse_buttons[0]:
+                #game_board[col3_pressed][2]
+                col3_pressed+=1
         elif  column_4.collidepoint(mouse_pos):
             screen.blit(redtoken_surf, (592, 20))
+            if mouse_buttons[0]:
+                #game_board[col4_pressed][3]
+                col4_pressed+=1
         elif  column_5.collidepoint(mouse_pos):
             screen.blit(redtoken_surf, (692, 20))
+            if mouse_buttons[0]:
+                #game_board[col5_pressed][4]
+                col5_pressed+=1
         elif  column_6.collidepoint(mouse_pos):
             screen.blit(redtoken_surf, (792, 20))
+            if mouse_buttons[0]:
+                #game_board[col6_pressed][5]
+                col6_pressed+=1
         elif  column_7.collidepoint(mouse_pos):
             screen.blit(redtoken_surf, (892, 20))
+            if mouse_buttons[0]:
+                #game_board[col7_pressed][0]
+                col7_pressed+=1
+
+        for col in range(7):
+            for row in range(6):
+                x_coord = 300 + col * 100
+                y_coord = (floor_rect.top - 80) - 100*row
+                #screen.blit(redtoken_surf, (x_coord, y_coord))
     pygame.display.update()
     clock.tick(60)
