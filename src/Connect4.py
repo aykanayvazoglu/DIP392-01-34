@@ -1,4 +1,4 @@
-
+from pathlib import Path
 from sys import exit
 import pygame
 import numpy as np
@@ -17,14 +17,15 @@ column_5 = pygame.Rect(692,0, 95, 720)
 column_6 = pygame.Rect(792,0, 95, 720)
 column_7 = pygame.Rect(892,0, 95, 720)
 
-background_surf = pygame.image.load('src/assets/bg.jpg').convert()
+asset_folder = Path('assets/')
+background_surf = pygame.image.load(asset_folder / "bg.jpg").convert()
 
-board_surf = pygame.image.load('src/assets/connect4Board.png').convert()
+board_surf = pygame.image.load(asset_folder / "connect4Board.png").convert()
 board_rect = board_surf.get_rect(midbottom=(640,720))
 
-redtoken_surf = pygame.image.load('src/assets/redtoken.png')
+redtoken_surf = pygame.image.load(asset_folder / "redtoken.png")
 
-bluetoken_surf = pygame.image.load('src/assets/bluetoken.png')
+bluetoken_surf = pygame.image.load(asset_folder / "bluetoken.png")
 
 floor_rect = pygame.Rect(0, 709, 1280,11)
 
