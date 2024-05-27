@@ -14,7 +14,7 @@ def test_initialization(new_game):
 
 def test_play_move(new_game):
     assert new_game.play_move(0) == True
-    assert new_game.game_board[5][0] == 0
+    assert new_game.game_board[5][0] == 6
     assert new_game.turn == 1
     assert new_game.col_pressed[0] == 1
     print("test_play_move succeed")
