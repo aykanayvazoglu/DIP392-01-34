@@ -6,7 +6,7 @@ class Connect4Game:
     def __init__(self):
         self.game_board = np.full((6, 7), 6)
         self.turn = 0
-        self.col_pressed = [0] * 7  # Tracks the number of tokens in each column
+        self.col_pressed = [0] * 7
 
     def reset(self):
         self.game_board = np.full((6, 7), 6)
@@ -17,25 +17,25 @@ class Connect4Game:
         return np.all(self.game_board != 6)
 
     def check_win(self):
-        # Check horizontal
+        # horizontal
         for row in range(6):
             for col in range(4):
                 if self.game_board[row, col] == self.game_board[row, col+1] == self.game_board[row, col+2] == self.game_board[row, col+3] != 6:
                     return True, self.game_board[row, col]
 
-        # Check vertical
+        # vertical
         for col in range(7):
             for row in range(3):
                 if self.game_board[row, col] == self.game_board[row+1, col] == self.game_board[row+2, col] == self.game_board[row+3, col] != 6:
                     return True, self.game_board[row, col]
 
-        # Check diagonal (from top-left to bottom-right)
+        # top-left to bottom-right
         for row in range(3):
             for col in range(4):
                 if self.game_board[row, col] == self.game_board[row+1, col+1] == self.game_board[row+2, col+2] == self.game_board[row+3, col+3] != 6:
                     return True, self.game_board[row, col]
 
-        # Check diagonal (from bottom-left to top-right)
+        # bottom-left to top-right
         for row in range(3, 6):
             for col in range(4):
                 if self.game_board[row, col] == self.game_board[row-1, col+1] == self.game_board[row-2, col+2] == self.game_board[row-3, col+3] != 6:
