@@ -1,4 +1,3 @@
-
 from sys import exit
 import pygame
 import numpy as np
@@ -17,14 +16,17 @@ column_5 = pygame.Rect(692,0, 95, 720)
 column_6 = pygame.Rect(792,0, 95, 720)
 column_7 = pygame.Rect(892,0, 95, 720)
 
-background_surf = pygame.image.load('src/assets/bg.jpg').convert()
+background_surf = pygame.image.load('assets/bg.jpg').convert()
 
-board_surf = pygame.image.load('src/assets/connect4Board.png').convert()
+window_icon = pygame.image.load('assets/icon.png')
+pygame.display.set_icon(window_icon)
+
+board_surf = pygame.image.load('assets/connect4Board.png').convert()
 board_rect = board_surf.get_rect(midbottom=(640,720))
 
-redtoken_surf = pygame.image.load('src/assets/redtoken.png')
+redtoken_surf = pygame.image.load('assets/redtoken.png')
 
-bluetoken_surf = pygame.image.load('src/assets/bluetoken.png')
+bluetoken_surf = pygame.image.load('assets/bluetoken.png')
 
 floor_rect = pygame.Rect(0, 709, 1280,11)
 
@@ -38,7 +40,7 @@ col6_pressed = 0
 col7_pressed = 0
 turn = 0
 
-game_font = pygame.font.Font('src/assets/Game_font.ttf',50)
+game_font = pygame.font.Font('assets/Game_font.ttf',50)
 
 text_redwin = game_font.render('Player 1 WIN !', False, 'Red', 'Black')
 text_bluewin = game_font.render('Player 2 WIN !', False, 'Blue', 'Black')
@@ -84,69 +86,14 @@ def check_win(matrix):
 
 
 while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                exit()
-            elif event.type == pygame.MOUSEBUTTONDOWN and not check_win(game_board)[0]:
-                mouse_pos = pygame.mouse.get_pos()
-                mouse_buttons = pygame.mouse.get_pressed()
-                if column_1.collidepoint(mouse_pos)and col1_pressed<6:
-                    if turn%2 == 0: 
-                        game_board[col1_pressed][0] = 0
-                    elif turn%2 == 1:
-                        game_board[col1_pressed][0] = 1
-                    col1_pressed+=1
-                    turn +=1
-                elif  column_2.collidepoint(mouse_pos)and col2_pressed<6:
-                    if mouse_buttons[0]:
-                        if turn%2 == 0: 
-                            game_board[col2_pressed][1] =0
-                        elif turn%2 == 1:
-                            game_board[col2_pressed][1] = 1
-                        col2_pressed+=1
-                        turn += 1
-                elif  column_3.collidepoint(mouse_pos)and col3_pressed<6:
-                    if mouse_buttons[0]:
-                        if turn%2 == 0: 
-                            game_board[col3_pressed][2] =0
-                        elif turn%2 == 1:
-                            game_board[col3_pressed][2] = 1
-                        col3_pressed+=1
-                        turn +=1
-                elif  column_4.collidepoint(mouse_pos)and col4_pressed<6:
-                    if mouse_buttons[0]:
-                        if turn %2== 0: 
-                            game_board[col4_pressed][3] =0
-                        elif turn%2 == 1:
-                            game_board[col4_pressed][3] = 1
-                        col4_pressed+=1
-                        turn+=1
-                elif  column_5.collidepoint(mouse_pos)and col5_pressed<6:
-                    if mouse_buttons[0]:
-                        if turn%2 == 0: 
-                            game_board[col5_pressed][4] =0
-                        elif turn%2 == 1:
-                            game_board[col5_pressed][4] = 1
-                        col5_pressed+=1
-                        turn +=1
-                elif  column_6.collidepoint(mouse_pos)and col6_pressed<6:
-                    if mouse_buttons[0]:
-                        if turn%2 == 0: 
-                            game_board[col6_pressed][5] =0
-                        elif turn%2 == 1:
-                            game_board[col6_pressed][5] = 1
-                        col6_pressed+=1
-                        turn +=1
-                elif  column_7.collidepoint(mouse_pos) and col7_pressed<6:
-                    if mouse_buttons[0]:
-                        if turn%2 == 0: 
-                            game_board[col7_pressed][6] =0
-                        elif turn%2 == 1:
-                            game_board[col7_pressed][6] = 1
-                        col7_pressed+=1
-                        turn+=1
-                elif (check_win(game_board)[0] or check_all_move_played(game_board)) and event.type == pygame.MOUSEBUTTONDOWN:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            exit()
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_pos = pygame.mouse.get_pos()
+            if check_win(game_board)[0] or check_all_move_played(game_board):
+                if restart_rect.collidepoint(mouse_pos):
                     game_board = np.full((6, 7), 6)
                     col1_pressed = 0
                     col2_pressed = 0
@@ -156,6 +103,56 @@ while True:
                     col6_pressed = 0
                     col7_pressed = 0
                     turn = 0
+                continue
+            if column_1.collidepoint(mouse_pos)and col1_pressed<6:
+                if turn%2 == 0:
+                    game_board[col1_pressed][0] = 0
+                elif turn%2 == 1:
+                    game_board[col1_pressed][0] = 1
+                col1_pressed+=1
+                turn +=1
+            elif  column_2.collidepoint(mouse_pos)and col2_pressed<6:
+                if turn%2 == 0:
+                    game_board[col2_pressed][1] =0
+                elif turn%2 == 1:
+                    game_board[col2_pressed][1] = 1
+                col2_pressed+=1
+                turn += 1
+            elif  column_3.collidepoint(mouse_pos)and col3_pressed<6:
+                if turn%2 == 0:
+                    game_board[col3_pressed][2] =0
+                elif turn%2 == 1:
+                    game_board[col3_pressed][2] = 1
+                col3_pressed+=1
+                turn +=1
+            elif  column_4.collidepoint(mouse_pos)and col4_pressed<6:
+                if turn %2== 0:
+                    game_board[col4_pressed][3] =0
+                elif turn%2 == 1:
+                    game_board[col4_pressed][3] = 1
+                col4_pressed+=1
+                turn+=1
+            elif  column_5.collidepoint(mouse_pos)and col5_pressed<6:
+                if turn%2 == 0:
+                    game_board[col5_pressed][4] =0
+                elif turn%2 == 1:
+                    game_board[col5_pressed][4] = 1
+                col5_pressed+=1
+                turn +=1
+            elif  column_6.collidepoint(mouse_pos)and col6_pressed<6:
+                if turn%2 == 0:
+                    game_board[col6_pressed][5] =0
+                elif turn%2 == 1:
+                    game_board[col6_pressed][5] = 1
+                col6_pressed+=1
+                turn +=1
+            elif  column_7.collidepoint(mouse_pos) and col7_pressed<6:
+                if turn%2 == 0:
+                    game_board[col7_pressed][6] =0
+                elif turn%2 == 1:
+                    game_board[col7_pressed][6] = 1
+                col7_pressed+=1
+                turn+=1
         
         if not check_win(game_board)[0] and not check_all_move_played(game_board):
             pygame.draw.rect(screen, (255,255,255), floor_rect)   
