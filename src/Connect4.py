@@ -18,9 +18,6 @@ column_7 = pygame.Rect(892,0, 95, 720)
 
 background_surf = pygame.image.load('assets/bg.jpg').convert()
 
-window_icon = pygame.image.load('assets/icon.png')
-pygame.display.set_icon(window_icon)
-
 board_surf = pygame.image.load('assets/connect4Board.png').convert()
 board_rect = board_surf.get_rect(midbottom=(640,720))
 
