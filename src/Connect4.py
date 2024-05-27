@@ -42,10 +42,16 @@ game_font = pygame.font.Font('src/assets/Game_font.ttf',50)
 
 text_redwin = game_font.render('Player 1 WIN !', False, 'Red', 'Black')
 text_bluewin = game_font.render('Player 2 WIN !', False, 'Blue', 'Black')
+text_noonewin = game_font.render('No one win', False, 'Yellow', 'Black')
 
 restart_button = game_font.render('Restart ?', False, 'White', 'Black')
 restart_rect = restart_button.get_rect(topleft=(530, 420))
 
+def check_all_move_played(matrix):
+    if np.all(matrix != 6):
+        return True
+    else:
+        return False
 
 
 def check_win(matrix):
@@ -74,7 +80,6 @@ def check_win(matrix):
                 return True, matrix[row, col]
 
     return False, None
-
 
 
 
@@ -141,20 +146,18 @@ while True:
                             game_board[col7_pressed][6] = 1
                         col7_pressed+=1
                         turn+=1
-            elif event.type == pygame.MOUSEBUTTONDOWN and check_win(game_board)[0]:
-                mouse_pos = pygame.mouse.get_pos()
-                mouse_buttons = pygame.mouse.get_pressed()
-                game_board = np.full((6, 7), 6)
-                col1_pressed = 0
-                col2_pressed = 0
-                col3_pressed = 0
-                col4_pressed = 0
-                col5_pressed = 0
-                col6_pressed = 0
-                col7_pressed = 0
-                turn = 0
+                elif (check_win(game_board)[0] or check_all_move_played(game_board)) and event.type == pygame.MOUSEBUTTONDOWN:
+                    game_board = np.full((6, 7), 6)
+                    col1_pressed = 0
+                    col2_pressed = 0
+                    col3_pressed = 0
+                    col4_pressed = 0
+                    col5_pressed = 0
+                    col6_pressed = 0
+                    col7_pressed = 0
+                    turn = 0
         
-        if not check_win(game_board)[0]:
+        if not check_win(game_board)[0] and not check_all_move_played(game_board):
             pygame.draw.rect(screen, (255,255,255), floor_rect)   
             pygame.draw.rect(screen, (0,0,0), column_1)
             pygame.draw.rect(screen, (0,0,0), column_2)
@@ -228,7 +231,21 @@ while True:
             elif turn%2==1:
                 screen.blit(text_redwin, (500, 320))
             screen.blit(restart_button, restart_rect)
-        print(check_win(game_board))
+
+        elif check_all_move_played(game_board):
+            screen.blit(background_surf, (0,0))
+            screen.blit(board_surf, board_rect)
+            for col in range(7):
+                    for row in range(6):
+                        x_coord = 300 + col * 100
+                        y_coord = (floor_rect.top - 80) - 100*row
+                        if game_board[row][col] == 0:
+                            screen.blit(redtoken_surf, (x_coord, y_coord))
+                        elif game_board[row][col] == 1:
+                            screen.blit(bluetoken_surf, (x_coord, y_coord))
+            screen.blit(text_noonewin, (520, 320))
+            screen.blit(restart_button, restart_rect)
+        print(check_win(game_board)[0] or check_all_move_played(game_board))
         pygame.display.update()
         clock.tick(60)
 
