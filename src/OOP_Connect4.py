@@ -69,10 +69,10 @@ class Connect4Display:
         self.bluetoken_surf = pygame.image.load('assets/bluetoken.png')
 
         self.game_font = pygame.font.Font('assets/Game_font.ttf', 50)
-        self.text_redwin = self.game_font.render('Player 1 WIN !', False, 'Red', 'Black')
-        self.text_bluewin = self.game_font.render('Player 2 WIN !', False, 'Blue', 'Black')
-        self.text_noonewin = self.game_font.render('No one win', False, 'Yellow', 'Black')
-        self.restart_button = self.game_font.render('Restart ?', False, 'White', 'Black')
+        self.text_redwin = self.game_font.render('Player 1 WIN !', True, 'Red', 'Black')
+        self.text_bluewin = self.game_font.render('Player 2 WIN !', True, 'Blue', 'Black')
+        self.text_noonewin = self.game_font.render('No one win', True, 'Yellow', 'Black')
+        self.restart_button = self.game_font.render('Restart ?', True, 'White', 'Black')
         self.restart_rect = self.restart_button.get_rect(topleft=(530, 420))
 
         self.game = Connect4Game()

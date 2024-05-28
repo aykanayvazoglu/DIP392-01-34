@@ -20,7 +20,7 @@ def test_play_move(new_game):
     print("test_play_move succeed")
 
 def test_win_conditions(new_game):
-    # Horizontal win
+    # horizontal win
     new_game.game_board[5][0] = 0
     new_game.game_board[5][1] = 0
     new_game.game_board[5][2] = 0
@@ -28,7 +28,7 @@ def test_win_conditions(new_game):
     assert new_game.check_win() == (True, 0)
     print("test_win_conditions succeed (horizontal)")
 
-    # Vertical win
+    # vertical win
     new_game.reset()
     new_game.game_board[5][0] = 0
     new_game.game_board[4][0] = 0
@@ -37,7 +37,7 @@ def test_win_conditions(new_game):
     assert new_game.check_win() == (True, 0)
     print("test_win_conditions succeed (vertical)")
 
-    # Diagonal win (from top-left to bottom-right)
+    # diagonal top-left to bottom-right
     new_game.reset()
     new_game.game_board[5][0] = 0
     new_game.game_board[4][1] = 0
@@ -46,7 +46,7 @@ def test_win_conditions(new_game):
     assert new_game.check_win() == (True, 0)
     print("test_win_conditions succeed (diagonal 1)")
 
-    # Diagonal win (from bottom-left to top-right)
+    # diagonal bottom-left to top-right
     new_game.reset()
     new_game.game_board[2][0] = 0
     new_game.game_board[3][1] = 0
